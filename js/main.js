@@ -41,9 +41,9 @@ const kittenThree = `<li class="card"><article>  <img class="card_img" src="${ki
 
 const input_search_desc = document.querySelector('.js_in_search_desc');
 
-input_search_desc.value = ' ';
 
-const search_desc = input_search_desc.value ;
+
+let search_desc = input_search_desc.value ;
 
 
 if( kittenDescOne.includes(search_desc) ) {
@@ -70,4 +70,67 @@ if( kittenDescOne.includes(search_desc) ) {
       newForm.classList.add("collapsed");
     }
     
+const plusForm = document.querySelector (".js_plus");
 
+plusForm.addEventListener ('click', (event) => {
+  event.preventDefault ();
+
+  newForm.classList.toggle("collapsed");
+})
+
+const buttonAdd = document.querySelector(".js-btn-add");
+
+const inputDesc = document.querySelector('.js-input-desc');
+const inputPhoto = document.querySelector('.js-input-photo');
+const inputName = document.querySelector('.js-input-name');
+const labelMesageError = document.querySelector('.js-label-error');
+
+const inputRace = document.querySelector('.js-input-race');
+
+buttonAdd.addEventListener ('click', (event) => {
+  event.preventDefault ();
+  
+  let valueDesc = inputDesc.value;
+  let valuePhoto = inputPhoto.value;
+  let valueName = inputName.value;
+
+if (valueDesc === '' || valuePhoto === '' || valueName === '') {
+  labelMesageError.innerHTML = 'Debe rellenar todos los valores'
+} 
+
+});
+
+const buttonSearch = document.querySelector(".js-btn-search");
+
+const input_search_race = document.querySelector('.js_in_search_raza');
+
+const labelMessageSearch = document.querySelector(".js-label-search");
+
+buttonSearch.addEventListener ('click', (event) => {
+  event.preventDefault ();
+
+  const searchRace = input_search_race.value;
+  search_desc = input_search_desc.value;
+
+  if (searchRace === '' || search_desc === '' ) {
+    
+    labelMessageSearch.innerHTML = 'Debe rellenar todos los valores'
+  } 
+
+});
+
+const buttonCancel = document.querySelector(".js-btn-cancel");
+
+
+buttonCancel.addEventListener ('click', (event) => {
+  event.preventDefault ();
+  let valueRace = inputRace.value;
+if (valueDesc !== '' || valuePhoto !== '' || valueName !== '' || valueRace !== '') {
+  valueDesc.innerHTML = '';
+  valueName.innerHTML = '';
+  valuePhoto.innerHTML = '';
+  valueRace.innerHTML = '';
+} 
+newForm.classList.add("collapsed");
+});
+  
