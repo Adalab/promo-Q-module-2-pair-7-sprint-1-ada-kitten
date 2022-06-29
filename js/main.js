@@ -34,6 +34,7 @@ kittenName = 'Cielo'.toUpperCase();
 
 const kittenThree = `<li class="card"><article>  <img class="card_img" src="${kittenPhoto}" alt="gatito" />  <h3 class="card_title">${kittenName}</h3>  <h4 class="card_race">${kittenRace}</h4>  <p class="card_description"> ${kittenDescThree} </p></article></li>`;
 
+
 //list.innerHTML = kittenOne + kittenTwo + kittenThree;
 
 
@@ -72,11 +73,27 @@ if( kittenDescOne.includes(search_desc) ) {
     
 const plusForm = document.querySelector (".js_plus");
 
-plusForm.addEventListener ('click', (event) => {
-  event.preventDefault ();
+function showNewCatForm(){
+  newForm.classList.remove("collapsed");
+}
 
-  newForm.classList.toggle("collapsed");
-})
+function hideNewCatForm(){
+  newForm.classList.add("collapsed");
+}
+
+function handleClickNewCatForm(event) {
+  event.preventDefault();
+  if (newForm.classList.contains('collapsed')) {
+    showNewCatForm();
+  } else {
+   hideNewCatForm();
+  }
+}
+plusForm.addEventListener('click', handleClickNewCatForm);
+
+
+
+
 
 const buttonAdd = document.querySelector(".js-btn-add");
 
@@ -86,17 +103,31 @@ const inputName = document.querySelector('.js-input-name');
 const labelMesageError = document.querySelector('.js-label-error');
 
 const inputRace = document.querySelector('.js-input-race');
-
-buttonAdd.addEventListener ('click', (event) => {
-  event.preventDefault ();
-  
   let valueDesc = inputDesc.value;
   let valuePhoto = inputPhoto.value;
   let valueName = inputName.value;
+  let valueRace = inputRace.value;
+ 
+//DESDE AQUI 
+  function renderKitten(url, desc, name, race) {
+    const newKitten = `<li class="card"><article>  <img class="card_img" src="${url}" alt="gatito" />  <h3 class="card_title">${name}</h3>  <h4 class="card_race">${race}</h4>  <p class="card_description"> ${desc} </p></article></li>`;
+   
+  }
 
-if (valueDesc === '' || valuePhoto === '' || valueName === '') {
+  renderKitten(valuePhoto, valueDesc, valueName, valueRace)
+buttonAdd.addEventListener ('click', (event) => {
+  event.preventDefault ();
+  
+  if (valueDesc === '' || valuePhoto === '' || valueName === '') {
   labelMesageError.innerHTML = 'Debe rellenar todos los valores'
 } 
+  else{ 
+    const newKittenAdd = renderKitten(valuePhoto, valueDesc, valueName, valueRace);
+    list.innerHTML = newKittenAdd;
+  }
+
+
+
 
 });
 
@@ -134,3 +165,4 @@ if (valueDesc !== '' || valuePhoto !== '' || valueName !== '' || valueRace !== '
 newForm.classList.add("collapsed");
 });
   
+
