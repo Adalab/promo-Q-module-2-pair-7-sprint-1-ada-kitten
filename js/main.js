@@ -103,33 +103,54 @@ const inputName = document.querySelector('.js-input-name');
 const labelMesageError = document.querySelector('.js-label-error');
 
 const inputRace = document.querySelector('.js-input-race');
+  
+
+//DESDE AQUI 
+  function renderKitten(url, desc, name, race) {
+    const newKitten = `<li class="card"><article>  <img class="card_img" src="${url}" alt="gatito" />  <h3 class="card_title">${name}</h3>  <h4 class="card_race">${race}</h4>  <p class="card_description"> ${desc} </p></article></li>`;
+   return newKitten;
+  }
+
+  
+buttonAdd.addEventListener ('click', (event) => {
+  event.preventDefault ();
   let valueDesc = inputDesc.value;
   let valuePhoto = inputPhoto.value;
   let valueName = inputName.value;
   let valueRace = inputRace.value;
  
-//DESDE AQUI 
-  function renderKitten(url, desc, name, race) {
-    const newKitten = `<li class="card"><article>  <img class="card_img" src="${url}" alt="gatito" />  <h3 class="card_title">${name}</h3>  <h4 class="card_race">${race}</h4>  <p class="card_description"> ${desc} </p></article></li>`;
-   
-  }
-
-  renderKitten(valuePhoto, valueDesc, valueName, valueRace)
-buttonAdd.addEventListener ('click', (event) => {
-  event.preventDefault ();
-  
   if (valueDesc === '' || valuePhoto === '' || valueName === '') {
   labelMesageError.innerHTML = 'Debe rellenar todos los valores'
 } 
   else{ 
+    labelMesageError.innerHTML = '';
     const newKittenAdd = renderKitten(valuePhoto, valueDesc, valueName, valueRace);
-    list.innerHTML = newKittenAdd;
+    list.innerHTML += newKittenAdd;
   }
 
-
-
-
 });
+
+const buttonCancel = document.querySelector(".js-btn-cancel");
+
+//PREGUNTAR AQUI
+
+buttonCancel.addEventListener ('click', (event) => {
+  event.preventDefault ();
+  let valueDesc = inputDesc.value;
+  let valuePhoto = inputPhoto.value;
+  let valueName = inputName.value;
+  let valueRace = inputRace.value;
+
+if (valueDesc !== '' || valuePhoto !== '' || valueName !== '' || valueRace !== '') {
+  valueDesc = '';
+  valueName = '';
+  valuePhoto = '';
+  valueRace = '';
+ 
+} 
+hideNewCatForm();
+});
+  
 
 const buttonSearch = document.querySelector(".js-btn-search");
 
@@ -150,19 +171,5 @@ buttonSearch.addEventListener ('click', (event) => {
 
 });
 
-const buttonCancel = document.querySelector(".js-btn-cancel");
 
-
-buttonCancel.addEventListener ('click', (event) => {
-  event.preventDefault ();
-  let valueRace = inputRace.value;
-if (valueDesc !== '' || valuePhoto !== '' || valueName !== '' || valueRace !== '') {
-  valueDesc.innerHTML = '';
-  valueName.innerHTML = '';
-  valuePhoto.innerHTML = '';
-  valueRace.innerHTML = '';
-} 
-newForm.classList.add("collapsed");
-});
-  
 
