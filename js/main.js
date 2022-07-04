@@ -47,29 +47,17 @@ const input_search_desc = document.querySelector('.js_in_search_desc');
 let search_desc = input_search_desc.value ;
 
 
-if( kittenDescOne.includes(search_desc) ) {
-    list.innerHTML = kittenOne;
-    }
-    
-    if( kittenDescTwo.includes(search_desc) ) {
-    list.innerHTML += kittenTwo;
-    }
-    
-    if( kittenDescThree.includes(search_desc) ) {
-    list.innerHTML += kittenThree;
-    }
-
-
-
 
     
-    if (newForm.classList.contains("collapsed")) {
+if (newForm.classList.contains("collapsed")) {
      
-      newForm.classList.remove("collapsed");
+newForm.classList.remove("collapsed");
     } else{
      
-      newForm.classList.add("collapsed");
-    }
+   newForm.classList.add("collapsed");
+    };
+
+  
     
 const plusForm = document.querySelector (".js_plus");
 
@@ -106,10 +94,23 @@ const inputRace = document.querySelector('.js-input-race');
   
 
 //DESDE AQUI 
-  function renderKitten(url, desc, name, race) {
-    const newKitten = `<li class="card"><article>  <img class="card_img" src="${url}" alt="gatito" />  <h3 class="card_title">${name}</h3>  <h4 class="card_race">${race}</h4>  <p class="card_description"> ${desc} </p></article></li>`;
-   return newKitten;
+
+let valueRace = inputRace.value;
+
+//ultimo dia
+function renderRace(race){
+  let valueRace = race;
+  if(valueRace !== '') {
+    <h4 class="card_race">${race}</h4> 
   }
+
+}
+  function renderKitten(url, desc, name, race) {
+    const newKitten = `<li class="card"><article>  <img class="card_img" src="${url}" alt="gatito" />  <h3 class="card_title">${name}</h3>  
+    <h4 class="card_race">${race}</h4>  <p class="card_description"> ${desc} </p></article></li>`;
+   return newKitten;
+  };
+  
 
   
 buttonAdd.addEventListener ('click', (event) => {
@@ -132,22 +133,17 @@ buttonAdd.addEventListener ('click', (event) => {
 
 const buttonCancel = document.querySelector(".js-btn-cancel");
 
-//PREGUNTAR AQUI
+
 
 buttonCancel.addEventListener ('click', (event) => {
-  event.preventDefault ();
-  let valueDesc = inputDesc.value;
-  let valuePhoto = inputPhoto.value;
-  let valueName = inputName.value;
-  let valueRace = inputRace.value;
+  event.preventDefault();
 
-if (valueDesc !== '' || valuePhoto !== '' || valueName !== '' || valueRace !== '') {
-  valueDesc = '';
-  valueName = '';
-  valuePhoto = '';
-  valueRace = '';
+  inputDesc.value= "";
+  inputName.value = "";
+  inputPhoto.value = "";
+  inputRace.value = "";
  
-} 
+
 hideNewCatForm();
 });
   
@@ -158,7 +154,29 @@ const input_search_race = document.querySelector('.js_in_search_raza');
 
 const labelMessageSearch = document.querySelector(".js-label-search");
 
-buttonSearch.addEventListener ('click', (event) => {
+//FUNCIONES 2
+
+
+
+const filterKitten = (event) => {
+    event.preventDefault();
+    list.innerHTML = "";
+    const searchRace = input_search_race.value;
+    search_desc = input_search_desc.value;
+    if (kittenDescOne.includes(search_desc)){
+      list.innerHTML += kittenOne;
+    }
+    if (kittenDescTwo.includes(search_desc)) {
+      list.innerHTML += kittenTwo;
+    }
+    if (kittenDescThree.includes(search_desc)) {
+      list.innerHTML += kittenThree;
+    }
+};
+
+
+
+/*buttonSearch.addEventListener ('click', (event) => {
   event.preventDefault ();
 
   const searchRace = input_search_race.value;
@@ -169,7 +187,11 @@ buttonSearch.addEventListener ('click', (event) => {
     labelMessageSearch.innerHTML = 'Debe rellenar todos los valores'
   } 
 
-});
 
+
+});*/
+
+
+buttonSearch.addEventListener('click', filterKitten);
 
 
