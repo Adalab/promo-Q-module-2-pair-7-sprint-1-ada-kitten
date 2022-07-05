@@ -35,10 +35,31 @@ kittenName = 'Cielo'.toUpperCase();
 const kittenThree = `<li class="card"><article>  <img class="card_img" src="${kittenPhoto}" alt="gatito" />  <h3 class="card_title">${kittenName}</h3>  <h4 class="card_race">${kittenRace}</h4>  <p class="card_description"> ${kittenDescThree} </p></article></li>`;
 
 
-//list.innerHTML = kittenOne + kittenTwo + kittenThree;
+list.innerHTML = kittenOne + kittenTwo + kittenThree;
 
+const kittenDataOne = {
+  image:'https://ychef.files.bbci.co.uk/976x549/p07ryyyj.jpg',
+  name: 'Anastacio',
+  desc:'Gruñon, juguetón, le gusta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!',
+  race:'British Shorthair',
+};
 
+const kittenDataTwo = {
+  image:'https://images.emedicinehealth.com/images/article/main_image/cat-scratch-disease.jpg',
+  name: 'Fiona',
+  desc:'Coñón, glotón, le gusta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!',
+  race:'British Shorthair',
+};
 
+const kittenDataThree = {
+  image:'https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2019_39/3021711/190923-cat-pet-stock-cs-1052a.jpg',
+  name: 'Cielo',
+  desc:'Ruiseño, juguetón, le gusta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle! y además es cariñoso',
+  race:'British Shorthair',
+};
+
+const kittenDataList = [kittenDataOne, kittenDataTwo, kittenDataThree];
+console.log(kittenDataList);
 
 const input_search_desc = document.querySelector('.js_in_search_desc');
 
@@ -101,33 +122,49 @@ let valueRace = inputRace.value;
 function renderRace(race){
   let valueRace = race;
   if(valueRace !== '') {
-    <h4 class="card_race">${race}</h4> 
+   race = `<h3 class="card_race">${valueRace}</h3>`;
+  } else {
+    race = `<p class="card_race">No se ha especificado la raza</p>`;
   }
-
+return race;
 }
-  function renderKitten(url, desc, name, race) {
-    const newKitten = `<li class="card"><article>  <img class="card_img" src="${url}" alt="gatito" />  <h3 class="card_title">${name}</h3>  
-    <h4 class="card_race">${race}</h4>  <p class="card_description"> ${desc} </p></article></li>`;
+  function renderKitten(kittenData) {
+    const newKitten = `<li class="card"><article>  <img class="card_img" src="${kittenData.image}" alt="gatito" />  <h3 class="card_title">${kittenData.name}</h3>  
+    ${kittenData.race}${kittenData.desc} </p></article></li>`;
    return newKitten;
   };
   
-
+function renderKittenList(kittenDataList) {
+  list.innerHTML = '';
+  
+  for (const kittenData of kittenDataList) {
+    list.innerHTML += renderKitten(kittenData);
+  }
+};
   
 buttonAdd.addEventListener ('click', (event) => {
   event.preventDefault ();
-  let valueDesc = inputDesc.value;
-  let valuePhoto = inputPhoto.value;
-  let valueName = inputName.value;
-  let valueRace = inputRace.value;
+  let kittenData = {
+    image: '',
+    name: '',
+    desc: '',
+    race: '',
+  };
+ kittenData.desc = inputDesc.value;
+  kittenData.image = inputPhoto.value;
+  kittenData.name = inputName.value;
+  kittenData.race = renderRace(inputRace.value);
  
-  if (valueDesc === '' || valuePhoto === '' || valueName === '') {
+  if (kittenData.desc === '' || kittenData.image === '' || kittenData.name === '') {
   labelMesageError.innerHTML = 'Debe rellenar todos los valores'
 } 
   else{ 
     labelMesageError.innerHTML = '';
-    const newKittenAdd = renderKitten(valuePhoto, valueDesc, valueName, valueRace);
-    list.innerHTML += newKittenAdd;
+   // const newKittenAdd = renderKitten(valuePhoto, valueDesc, valueName, valueRace);
+   const newKittenAdd = renderKittenList(kittenDataList); 
+   list.innerHTML += newKittenAdd;
   }
+  hideNewCatForm();
 
 });
 
